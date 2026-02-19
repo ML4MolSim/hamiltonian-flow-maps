@@ -1,0 +1,2 @@
+_target_: hfm.backbones.mlp.MLPBackbone
+name: mlp_mf

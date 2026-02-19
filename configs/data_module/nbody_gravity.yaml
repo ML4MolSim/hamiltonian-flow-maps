@@ -1,0 +1,12 @@
+_target_: hfm.datasets.numpy_datamodule.NumpyDataModule
+name: nbody_gravity
+file_path: ../data/nbody_gravityFULL.npz
+force_unit: 1
+energy_unit: 1
+pos_unit: 1
+get_masses_from_ase: false
+load_momenta: ${globals.load_momenta_from_force_dataset}
+
+split_train: 0.99
+split_val: 0.01
+split_test: 0.0

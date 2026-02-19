@@ -1,0 +1,6 @@
+_target_: hfm.datasets.fane_datamodule.FANEDataModule
+name: fane_salicylic_acid
+file_path_train: ../data/fane/salicylic_acid/10k/train/nequip_npz.npz
+file_path_val: ../data/fane/salicylic_acid/10k/val/nequip_npz.npz
+file_path_test: ../data/fane/salicylic_acid/10k/test/nequip_npz.npz
+energy_normalization: mean

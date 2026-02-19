@@ -1,0 +1,86 @@
+defaults:
+  - _default
+  - sim_env: nvt_mf
+  - _self_
+  
+wandb:
+  entity: default
+  project: simbench
+  group: null
+  mode: online
+
+load_models:
+  sim: ???
+  pot: ???
+  
+globals:
+  mf_ts_fs: 5
+  simulation_length_ns: 0.3
+  zero_drift: True
+  zero_rot: False
+  n_parallel_runs: 5
+  n_dim: 3
+  T_equilibrium: ???
+  T_start: ${mul:${globals.T_equilibrium},2.0} 
+  simulation_length: ${ns:${globals.simulation_length_ns}}
+  seed: 42
+  save_every: 1
+  exp: >
+    ${sim_env.name}
+    ${print_ns:${globals.simulation_length}}
+    ${data_module.name}
+    ${globals.desc}
+  desc: ''
+  potential:
+    _target_: hfm.potentials.neural_force_field.NeuralForceField
+    model: ${model_pot}
+    params: ${params_pot}
+    data_module: ${data_module}
+  potential_mf:
+    _target_: hfm.potentials.neural_force_field.NeuralForceField
+    model: ${model_sim}
+    params: ${params_sim}
+    data_module: ${data_module}
+    
+metric_defaults: &metric_defaults
+  data_module: ${data_module}
+  integration_timestep: ${sim_env.integration_timestep}
+
+metrics:
+  - <<: *metric_defaults
+    _target_: hfm.simulation.metrics.PlotAngularAndMeanMomentum
+    subsample: 10
+  - <<: *metric_defaults
+    _target_: hfm.simulation.metrics.PlotTempAndEnergy
+    zero_drift: False
+    zero_rot: False
+    T_equilibrium: ${globals.T_equilibrium}
+    subsample: 10
+    potential: ${globals.potential}
+  - <<: *metric_defaults
+    _target_: hfm.simulation.metrics.PlotEPotHistogram
+    subsample: 10
+  - <<: *metric_defaults
+    _target_: hfm.simulation.metrics.PlotSpectrum
+    integration_timestep: ${mul:${globals.save_every},${sim_env.integration_timestep}}
+    use_momenta: True
+  - <<: *metric_defaults
+    _target_: hfm.simulation.metrics.PlotSpectrum
+    integration_timestep: ${mul:${globals.save_every},${sim_env.integration_timestep}}
+    use_momenta: False
+  - <<: *metric_defaults
+    _target_: hfm.simulation.metrics.PlotDihedralHistogram
+    angle_index: 0
+  - <<: *metric_defaults
+    _target_: hfm.simulation.metrics.PlotDihedralHistogram
+    angle_index: 1
+  - <<: *metric_defaults
+    _target_: hfm.simulation.metrics.PlotRamachandran
+  - <<: *metric_defaults
+    _target_: hfm.simulation.metrics.ForcesAreNotEnoughMetrics
+  - <<: *metric_defaults
+    _target_: hfm.simulation.metrics.LogASETraj
+    subsample: 300
+    align_positions: true
+  
+load_dm: True

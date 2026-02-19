@@ -1,0 +1,6 @@
+_target_: hfm.datasets.fane_datamodule.FANEDataModule
+name: fane_aspirin
+file_path_train: ../data/fane/aspirin/10k/train/nequip_npz.npz
+file_path_val: ../data/fane/aspirin/10k/val/nequip_npz.npz
+file_path_test: ../data/fane/aspirin/10k/test/nequip_npz.npz
+energy_normalization: mean

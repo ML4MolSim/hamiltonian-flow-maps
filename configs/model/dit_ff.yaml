@@ -1,0 +1,13 @@
+_target_: hfm.backbones.dit.make_molecular_DiT
+name: dit_ff
+num_layers: 6
+num_heads: 8
+num_features_head: 32
+cutoff: ${globals.cutoff}
+scale_pos: 1.0
+scale_mom: 0.0
+embed_velocities_absolute: false
+embed_masses: false
+force_as_grad: true
+use_adaptive_layernorm: false
+zbl_repulsion: false

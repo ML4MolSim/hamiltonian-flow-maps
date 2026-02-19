@@ -1,0 +1,14 @@
+name: Mean Flow NVE
+integration_timestep: ${fs:5.0}
+simulator:
+  _target_: hfm.simulation.mean_flow_integrator.HFMIntegrator
+  integration_timestep: ${sim_env.integration_timestep}
+  model: ${model_sim}
+  params: ${params_sim}
+  data_module: ${data_module}
+  filters:
+  # filters are ordered from innermost to outermost
+    - _target_: hfm.simulation.integration_filters.RandomRotationFilter
+    - _target_: hfm.simulation.integration_filters.RemoveDriftFilterFlashMD
+    - _target_: hfm.simulation.integration_filters.CoupledConservationFilter
+      potential: ${globals.potential}

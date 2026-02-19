@@ -1,0 +1,11 @@
+recursive-exclude build *
+recursive-exclude configs *
+recursive-exclude data *
+recursive-exclude examples *
+recursive-exclude examples_deprecated *
+recursive-exclude old_model *
+recursive-exclude tests *
+recursive-exclude tf_datasets *
+recursive-exclude toy_examples *
+recursive-exclude hfm/multirun *
+recursive-exclude hfm/outputs *

@@ -1,0 +1,50 @@
+defaults:
+  - _default
+  - data_module: ???
+  - model: so3dit_ff
+  - _self_
+  
+wandb:
+  entity: default
+  project: hfm-v3
+  group: force_field
+  mode: online
+
+globals:
+  exp: >
+    ${model.name}
+    ${data_module.name}
+    ${globals.desc}
+  temperature: 0.0
+  zero_momenta_p: 0.0
+  zero_t_p: 1.0
+  t_max: ${fs:0.0}
+  desc: ''
+  cutoff: 7.5
+
+trainer:
+  _target_: hfm.training.trainer.HFMTrainer
+  _convert_: all
+  data_module: ${data_module}
+  temperature_mean: ${globals.temperature}
+  temperature_std: 0.0
+  n_dim: 3
+  rotation_augmentation: true
+  zero_momenta_p: ${globals.zero_momenta_p}
+  zero_t_p: ${globals.zero_t_p}
+  t_max: ${globals.t_max}
+  model: ${model}
+  n_epochs: 500
+  validate_after_n_epochs: 10
+  batch_size: 64
+  scale_parameters:
+    mean_force: .99
+    mean_velocity: 0.0
+    energy: 0.01
+  checkpoint_name: so3_force_field
+  save_params_every: 100
+  large_force_threshold: 130.0
+  zero_rot_p: 0.0
+
+load_params: null
+seed: 42

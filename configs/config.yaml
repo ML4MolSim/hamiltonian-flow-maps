@@ -1,0 +1,63 @@
+defaults:
+  - _default
+  - data_module: ???
+  - model: dit
+  - _self_
+  
+wandb:
+  entity: default
+  project: hfm-v3
+  group: null
+  mode: online
+
+globals:
+  t_max_fs: 10.0
+  exp: >
+    ${model.name}
+    ${data_module.name}
+    ${globals.desc}
+  temperature: 500.0
+  desc: ''
+  zero_momenta_p: 0.25
+  zero_t_p: 0.75
+  zero_rot_p: 0.25
+  t_max: ${fs:${globals.t_max_fs}}
+  cutoff: 7.5
+
+trainer:
+  _target_: hfm.training.trainer.HFMTrainer
+  _convert_: all
+  data_module: ${data_module}
+  temperature_mean: ${globals.temperature}
+  temperature_std: 150.0
+  n_dim: 3
+  rotation_augmentation: true
+  zero_momenta_p: ${globals.zero_momenta_p}
+  zero_t_p: ${globals.zero_t_p}
+  t_max: ${globals.t_max}
+  model: ${model}
+  n_epochs: 2000
+  validate_after_n_epochs: 10
+  batch_size: 128
+  optimizer_parameters:
+    init_value: 1e-6
+    peak_value: 1e-4
+    end_value: 1e-8
+    warmup_pct: 0.01
+    adam_b1: 0.9
+    adam_b2: 0.95
+    adam_weight_decay: 0.0
+    max_norm: 5.0
+  scale_parameters:
+    mean_force: 1.0
+    mean_velocity: 1.0
+    energy: 0.01
+  checkpoint_name: mean_flow
+  save_params_every: 100
+  large_force_threshold: 130.0
+  use_mass_scaling: true
+  use_improved_t_sampling: false
+  zero_rot_p: ${globals.zero_rot_p}
+
+load_params: false
+seed: 42

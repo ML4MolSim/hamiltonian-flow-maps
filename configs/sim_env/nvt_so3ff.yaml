@@ -1,0 +1,13 @@
+name: Force Field NVT
+integration_timestep: ${fs:0.5}
+# Simulate force field via NVT + operator splitting
+simulator:
+  _target_: hfm.simulation.langevin_integrator.LangevinOperatorSplittingIntegrator
+  time_constant: ${fs:100.0}
+  integration_timestep: ${sim_env.integration_timestep}
+  temperature: ${globals.T_equilibrium}
+  zero_drift_and_rot: false
+  nve_integrator:
+    _target_: hfm.simulation.nve_integrator.VelocityVerletIntegrator
+    integration_timestep: ${sim_env.integration_timestep}
+    potential: ${globals.potential}

@@ -1,0 +1,9 @@
+_target_: hfm.datasets.numpy_datamodule.NumpyDataModule
+name: alanine_dipeptide
+file_path: ../data/aldp.npz
+dihedral_atom_indices: [[4, 6, 8, 14], [6, 8, 14, 16]]
+dihedral_angle_names: ["phi", "psi"]
+dihedral_angle_symbols: ["\\varphi", "\\psi"]
+force_unit: kJ/mol/nm
+energy_unit: kJ/mol
+pos_unit: nm

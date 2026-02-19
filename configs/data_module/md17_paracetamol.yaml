@@ -1,0 +1,7 @@
+_target_: hfm.datasets.numpy_datamodule.NumpyDataModule
+name: md17_paracetamol
+file_path: /home/winnie/hfm/data/md17_paracetamol.npz
+dihedral_atom_indices: [[6, 7, 8, 17], [1, 3, 4, 5]]
+dihedral_angle_names: ["phi", "psi"]
+dihedral_angle_symbols: ["\\varphi", "\\psi"]
+energy_normalization: mean

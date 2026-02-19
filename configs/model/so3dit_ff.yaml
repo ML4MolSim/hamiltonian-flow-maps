@@ -1,0 +1,15 @@
+_target_: hfm.backbones.so3dit.make_molecular_SO3DiT
+name: so3dit_ff
+num_layers: 3
+num_heads: 4
+num_features_head: 32
+max_degree: 1
+include_pseudotensors: false
+cutoff: ${globals.cutoff}
+scale_pos: 1.0
+scale_mom: 0.0
+embed_velocities_absolute: false
+embed_masses: false
+force_as_grad: true
+zbl_repulsion: true
+use_adaptive_layernorm: false

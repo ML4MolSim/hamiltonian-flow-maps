@@ -1,0 +1,6 @@
+name: Force Field NVE
+integration_timestep: ${fs:0.5}
+simulator:
+  _target_: hfm.simulation.nve_integrator.VelocityVerletIntegrator
+  integration_timestep: ${sim_env.integration_timestep}
+  potential: ${globals.potential}
