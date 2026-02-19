@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hamiltonian Flow Maps</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <!-- <nav>
+        <div class="container nav-container">
+            <a href="#" class="logo">HFM</a>
+            <div class="nav-links">
+                <a href="#abstract">Abstract</a>
+                <a href="#method">Method</a>
+                <a href="#results">Results</a>
+                <a href="#resources">Resources</a>
+            </div>
+        </div>
+    </nav> -->
+
+    <header class="hero">
+        <div class="container">
+            <h1 class="title">Learning Hamiltonian Flow Maps</h1>
+            <p class="subtitle">Mean Flow Consistency for Large-Timestep Molecular Dynamics</p>
+            
+            <div class="authors">
+                <span class="author">Winfried Ripken<sup>*&nbsp;1,2</sup></span>
+                <span class="author">Michael Plainer<sup>*&nbsp;3,4,1,2</sup></span>
+                <span class="author">Gregor Lied<sup>*&nbsp;1</sup></span>
+                <span class="author">J. Thorben Frank<sup>*&nbsp;1,2</sup></span>
+                <span class="author">Oliver T. Unke<sup>5</sup></span>
+                <span class="author">Stefan Chmiela<sup>1,2</sup></span>
+                <span class="author">Frank Noé<sup>3,6,7</sup></span>
+                <span class="author">Klaus-Robert Müller<sup>1,2,5,8,9</sup></span>
+            </div>
+            
+            <div class="affiliations">
+                <p>
+                    <sup>1</sup>Technical University Berlin &nbsp; 
+                    <sup>2</sup>BIFOLD Berlin &nbsp; 
+                    <sup>3</sup>Free University of Berlin &nbsp; 
+                    <sup>4</sup>Zuse School ELIZA &nbsp; 
+                    <sup>5</sup>Google DeepMind &nbsp; 
+                    <sup>6</sup>Rice University &nbsp;
+                <!-- </p>
+                <p> -->
+                    <sup>7</sup>Microsoft Research AI4Science &nbsp; 
+                    <sup>8</sup>MPI for Informatics, Saarbrücken &nbsp; 
+                    <sup>9</sup>Department of Artificial Intelligence, Korea University
+                </p>
+            </div>
+
+            <div class="action-buttons">
+                <div class="hero-group hero-group--paper">
+                    <span class="hero-group-label">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                        Paper
+                    </span>
+                    <a href="https://arxiv.org/abs/2601.22123" class="hero-group-option">arXiv</a>
+                </div>
+                <div class="hero-group hero-group--github">
+                    <span class="hero-group-label">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                        Code
+                    </span>
+                    <a href="https://github.com/ML4MolSim/hamiltonian-flow-maps" class="hero-group-option">GitHub</a>
+                </div>
+                <div class="hero-group hero-group--colab">
+                    <span class="hero-group-label">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><line x1="8" y1="7" x2="16" y2="7"></line><line x1="8" y1="11" x2="16" y2="11"></line><line x1="8" y1="15" x2="12" y2="15"></line></svg>
+                        Colab
+                    </span>
+                    <a href="https://colab.research.google.com/github/ML4MolSim/hamiltonian-flow-maps/blob/main/examples/harmonic_oscillator_standalone.ipynb" class="hero-group-option">JAX</a>
+                    <a href="https://colab.research.google.com/github/ML4MolSim/hamiltonian-flow-maps/blob/main/examples/harmonic_oscillator_standalone_pytorch.ipynb" class="hero-group-option">PyTorch</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="teaser-section">
+        <div class="container">
+            <div class="video-wrapper box-shadow">
+                <video autoplay loop muted playsinline controls>
+                    <source src="assets/teaser_video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <p class="caption">
+                Our learned <strong>Hamiltonian Flow Map</strong> enables stable simulations at significantly larger timesteps (right) than standard Velocity Verlet integration (left), which becomes inaccurate or unstable already at comparatively small step sizes. Consequently, our model explores conformational space more rapidly and identifies all relevant modes more efficiently than the baseline.
+            </p>
+        </div>
+    </section>
+
+    <section id="abstract" class="light-bg">
+        <div class="container">
+            <div class="two-column">
+                <div class="col-text">
+                    <h2>Abstract</h2>
+                    <p>
+                        Simulating the long-time evolution of Hamiltonian systems is limited by the small timesteps required for stable numerical integration. This is particularly costly for molecular dynamics simulations where force evaluations are computationally expensive (e.g., <i>ab-initio</i> MD).
+                    </p>
+                    <p>
+                        We introduce a framework to learn <strong>Hamiltonian Flow Maps</strong> based on a novel <strong>Mean Flow consistency</strong> condition. This formulation allows training our model to predict the mean phase-space evolution directly, enabling stable rollouts far beyond classical limits and reducing the computational cost of long-time simulations.
+                    </p>
+                    <p>
+                        Crucially, our method can be trained on standard <strong>trajectory-free MLFF datasets</strong>. We learn the cumulative dynamics directly from independent phase-space samples, without relying on expensive precomputed reference trajectories that are typically generated by simulating a teacher model with small timesteps.
+                    </p>
+                </div>
+                <div>
+                    <h2>Key Insights</h2>
+                    <div class="col-box">
+                    <ul class="simple-list">
+                    <li>
+                    <span class="icon">🚀</span>
+                    <div>
+                    <strong>Large-Timestep Integration:</strong> We predict the mean phase-space evolution to enable stable rollouts at timesteps significantly larger than the stability limits of classical integrators.
+                    </div>
+                    </li>
+                    <li>
+                    <span class="icon">🎲</span>
+                    <div>
+                    <strong>Training on Trajectory-Free Data:</strong> We learn the dynamics from uncorrelated snapshots using a Mean Flow consistency condition, eliminating the need for expensive reference trajectories.
+                    </div>
+                    </li>
+                    <li>
+                    <span class="icon">⏱️</span>
+                    <div>
+                    <strong>Unified Force & Flow:</strong> We learn a continuous-time model that supports inference with arbitrary timesteps, functioning as both a conventional force field and a large-step integrator.
+                    </div>
+                    </li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="method">
+        <div class="container">
+            <h2>Methodology</h2>
+            <p class="section-intro">
+                Standard ML potentials approximate the potential energy surface $V(x)$, compute the forces $F(x)=-\nabla_x V(x)$, and simulate dynamics by integrating Hamilton's equations of motion with numerical integrators such as Velocity Verlet. In contrast, we learn the <strong>Hamiltonian Flow Map</strong> $u_{\Delta t}$ that directly predicts the phase-space evolution $(x_t, p_t)\rightarrow (x_{t + \Delta t}, p_{t + \Delta t})$ over a finite time interval $\Delta t$.
+            </p>
+
+            <div class="method-grid">
+                <div class="method-card">
+                    <div class="card-icon">1</div>
+                    <h3>Parameterization</h3>
+                    <p>
+                        We parameterize this map using a neural network $u^\theta$ that takes the current state $(x_t, p_t)$ and a time interval $\Delta t$ as input and outputs the <strong>mean velocity and force</strong> over that interval. The future state is then obtained by adding the mean displacement to the current state, $(x_t, p_t) + \Delta t u^\theta(x_t, p_t, \Delta t)$, allowing us to decouple the step size from the stability limit of numerical integrators.
+                    </p>
+                </div>
+                <div class="method-card">
+                    <div class="card-icon">2</div>
+                    <h3>Mean Flow Consistency</h3>
+                    <p>
+                        We utilize that the change in position and momentum must equal the time-integrated velocity and force. With this, we can formulate a <strong>Mean Flow consistency</strong> condition that penalizes deviations between the predicted change and the mean quantities acting along the predicted path, using only instantaneous force labels from independent phase-space samples as the training signal.
+                    </p>
+                </div>
+                <div class="method-card">
+                    <div class="card-icon">3</div>
+                    <h3>Arbitrary Timesteps</h3>
+                    <p>
+                        We train our model on a distribution of time intervals $\Delta t \sim q(\Delta t)$, which enables <strong>inference with arbitrary timesteps</strong> rather than a single, fixed timestep. For $\Delta t = 0$, the model directly predicts the instantaneous forces. For $\Delta t > 0$, the model learns the cumulative dynamics, enabling stable rollouts at timesteps significantly larger than the stability limits of classical integrators.
+                    </p>
+                </div>
+            </div>
+
+            <div class="figure-container">
+                <img src="assets/method_diagram.png" alt="Comparison with existing approaches" class="main-figure">
+                <p class="caption">
+                    <strong>Comparison with existing approaches.</strong> To learn large timesteps, existing approaches rely on trajectory data, typically generated using a teacher MLFF model through sequential simulation with small timesteps. This potentially introduces artifacts from the teacher, can be computationally expensive, and the model only supports a single, fixed timestep during inference. In contrast, our method learns continuous-time, large-timestep dynamics directly from decorrelated phase-space samples without requiring expensive reference trajectories. Our tailored loss function combines force matching with a consistency constraint that enforces agreement of the predicted flow across different time horizons.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="results" class="light-bg">
+        <div class="container">
+            <h2>Results: Paracetamol</h2>
+            <p class="section-intro">
+                We validate our method on the flexible drug molecule Paracetamol. Unlike standard generative models that are limited to reproducing the specific (often unconverged) distribution of training data, Hamiltonian Flow Maps (HFM) function like Machine Learning Force Fields (MLFF): they learn the underlying dynamics rather than just the data density.
+                <br><br>
+                Consequently, our goal is to match the "gold standard" accuracy of a conventional MLFF but with significantly larger timesteps. HFM accurately reproduces the complex conformational landscape and vibrational spectra while enabling stable simulation at large timesteps (e.g., $\Delta t = 9.0$ fs) beyond the stability limit of classical integrators.
+            </p>
+    
+            <div class="figure-container">
+                <img src="assets/paracetamol.png" alt="Data efficiency for Paracetamol in NVT simulation (3 ns)" class="main-figure">
+                <p class="caption">
+                    <strong>Data efficiency for Paracetamol in NVT simulation (3 ns).</strong> We compare models trained on $\approx$ 85k samples (top) and on only 256 samples (bottom). We show the Free Energy Surface (FES) projected onto the dihedral angles $\varphi, \psi$. Both the MLFF and the HFM recover the reference distribution despite the biased training distribution. Our learned HFM additionally yields accurate large-timestep dynamics, as indicated by a vibrational spectrum that closely matches the small-timestep MLFF.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="resources" id="resources">
+        <div class="container">
+          <h2>Resources</h2>
+          <div class="resources-grid">
+            <div class="resource-card highlight">
+              <div class="resource-title">Interactive Demo</div>
+              <p class="resource-desc">Explore the core training logic for the harmonic oscillator directly in your browser.</p>
+              <div class="resource-actions inline" style="justify-content: center;">
+                <a class="btn secondary" href="https://colab.research.google.com/github/ML4MolSim/hamiltonian-flow-maps/blob/main/examples/harmonic_oscillator_standalone.ipynb">Open in Colab (JAX)</a>
+                <a class="btn secondary" href="https://colab.research.google.com/github/ML4MolSim/hamiltonian-flow-maps/blob/main/examples/harmonic_oscillator_standalone_pytorch.ipynb">Open in Colab (PyTorch)</a>
+              </div>
+              <div class="colab-ad">
+                <div class="colab-ad-inner">
+                  <div class="colab-ad-title">Notebook preview</div>
+                  <svg class="colab-placeholder" viewBox="0 0 960 540" role="img" aria-label="HFM demo notebook preview">
+                    <rect x="0" y="0" width="960" height="540" rx="18" fill="#0b1220"></rect>
+                    
+                    <rect x="36" y="40" width="888" height="58" rx="12" fill="#111b31"></rect>
+                    <circle cx="72" cy="69" r="10" fill="#ef4444"></circle>
+                    <circle cx="102" cy="69" r="10" fill="#f59e0b"></circle>
+                    <circle cx="132" cy="69" r="10" fill="#22c55e"></circle>
+                    <text x="170" y="76" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="20">HFM Training = Force Matching + Consistency Loss</text>
+                    
+                    <rect x="36" y="118" width="560" height="370" rx="12" fill="#0f172a"></rect>
+                    
+                    <rect x="612" y="118" width="312" height="370" rx="12" fill="#0f172a"></rect>
+    
+                    <text x="64" y="156" fill="#f472b6" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="600">Training Step</text>
+                    
+                    <text x="64" y="186" fill="#93c5fd" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">def</text>
+                    <text x="96" y="186" fill="#fbbf24" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">train_step</text>
+                    <text x="180" y="186" fill="#e5e7eb" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">(model, x, f, t_max):</text>
+                    
+                    <text x="80" y="215" fill="#7dd3fc" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14"># 1. Sampling</text>
+                    <text x="80" y="235" fill="#e5e7eb" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">p = sample_maxwell_boltzmann(temperature)</text>
+                    <text x="80" y="255" fill="#e5e7eb" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">dt = sample_timestep(t_max)</text>
+    
+                    <text x="80" y="285" fill="#7dd3fc" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14"># 2. Apply Model (JVP)</text>
+                    <text x="80" y="305" fill="#6b7280" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13"># Tangents: [v, f, -1] for flow consistency</text>
+                    <text x="80" y="325" fill="#e5e7eb" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">tangents = [p/m, f, -1.0]</text>
+                    <text x="80" y="345" fill="#e5e7eb" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">u, du = jvp(model, (x, p, dt), tangents)</text>
+                    
+                    <text x="80" y="375" fill="#7dd3fc" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14"># 3. Compute Loss (Stop Gradient)</text>
+                    <text x="80" y="395" fill="#e5e7eb" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">target = [p/m, f] + dt * du</text>
+                    <text x="80" y="415" fill="#93c5fd" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">return</text>
+                    <text x="136" y="415" fill="#e5e7eb" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">(u - target.stop_gradient())**2</text>
+    
+                    <text x="640" y="156" fill="#a7f3d0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">[Output]</text>
+                    <text x="640" y="186" fill="#e5e7eb" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">Hamiltonian Dynamics</text>
+                    <text x="640" y="214" fill="#e5e7eb" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">Loss: Converging...</text>
+                    
+                    <text x="640" y="270" fill="#a7f3d0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">[Results]</text>
+                    <text x="640" y="298" fill="#94a3b8" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">Full evaluation plots</text>
+                    <text x="640" y="318" fill="#94a3b8" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">and metrics are available</text>
+                    <text x="640" y="338" fill="#94a3b8" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">in the notebook.</text>
+                    
+                    <text x="640" y="410" fill="#93c5fd" font-family="Inter, system-ui, sans-serif" font-size="13">Run in Colab to see results →</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="resource-card">
+              <div class="resource-title">Models</div>
+              <p class="resource-desc">Pretrained checkpoints for Paracetamol, Alanine Dipeptide, and other benchmark systems will be released soon and will be made available here.</p>
+              <div class="resource-actions">
+                  <span class="btn-outline" style="cursor: default; opacity: 0.7;">Coming Soon</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <section id="bibtex" class="light-bg">
+        <div class="container">
+            <h2>Citation</h2>
+            <div class="bibtex-box">
+                <button type="button" class="btn-copy" id="copy-bibtex" aria-label="Copy BibTeX">
+                    <svg class="icon-clipboard" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1"></path></svg>
+                    <svg class="icon-check hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </button>
+                <div class="bibtex-scroll">
+<pre><code id="bibtex-content">@article{ripken2026learning,
+    title = {Learning Hamiltonian Flow Maps: Mean Flow Consistency for Large-Timestep Molecular Dynamics},
+    author = {Ripken, Winfried and Plainer, Michael and Lied, Gregor and Frank, Thorben and Unke, Oliver T. and Chmiela, Stefan and No{\'e}, Frank and M{\"u}ller, Klaus Robert},
+    year = {2026},
+    journal={arXiv preprint arXiv:2601.22123},
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('copy-bibtex').addEventListener('click', function () {
+            var code = document.getElementById('bibtex-content');
+            var text = code.textContent;
+            navigator.clipboard.writeText(text).then(function () {
+                var btn = document.getElementById('copy-bibtex');
+                btn.classList.add('copied');
+                btn.querySelector('.icon-clipboard').classList.add('hidden');
+                btn.querySelector('.icon-check').classList.remove('hidden');
+                setTimeout(function () {
+                    btn.classList.remove('copied');
+                    btn.querySelector('.icon-clipboard').classList.remove('hidden');
+                    btn.querySelector('.icon-check').classList.add('hidden');
+                }, 2000);
+            });
+        });
+    </script>
+
+    <footer>
+        <div class="container">
+            <a href="https://arxiv.org/abs/2601.22123">Paper (arXiv)</a> &nbsp;|&nbsp;
+            <a href="https://github.com/ML4MolSim/hamiltonian-flow-maps">Code (GitHub)</a> &nbsp;|&nbsp;
+            <a href="https://colab.research.google.com/github/ML4MolSim/hamiltonian-flow-maps/blob/main/examples/harmonic_oscillator_standalone.ipynb">Colab (JAX)</a> &nbsp;|&nbsp;
+            <a href="https://colab.research.google.com/github/ML4MolSim/hamiltonian-flow-maps/blob/main/examples/harmonic_oscillator_standalone_pytorch.ipynb">Colab (PyTorch)</a>
+        </div>
+    </footer>
+
+</body>
+</html>

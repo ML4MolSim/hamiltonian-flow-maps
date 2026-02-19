@@ -1,0 +1,590 @@
+/* --- Variables & Reset --- */
+:root {
+    --primary: #2563eb;       /* Academic Blue */
+    --primary-dark: #1e40af;
+    --text-main: #1f2937;
+    --text-light: #6b7280;
+    --bg-white: #ffffff;
+    --bg-off: #f9fafb;        /* Light grey for alternate sections */
+    --border: #e5e7eb;
+    
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-main);
+    line-height: 1.6;
+    background-color: var(--bg-white);
+}
+
+/* --- Layout Utilities --- */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+section {
+    padding: 80px 0;
+}
+
+.light-bg {
+    background-color: var(--bg-off);
+}
+
+/* --- Typography --- */
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: #111;
+}
+
+h1.title {
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+
+p.subtitle {
+    font-size: 1.53rem;
+    color: var(--text-light);
+    font-weight: 300;
+    margin-bottom: 16px;
+}
+
+h2 {
+    font-size: 2.2rem;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+p {
+    margin-bottom: 1.5rem;
+}
+
+/* --- Hero Section --- */
+.hero {
+    padding: 10px 0 30px;
+    text-align: center;
+    background-color: #2876F433;
+}
+
+.authors {
+    max-width: 800px;
+    margin: 0 auto 16px;
+    font-size: 1.1rem;
+}
+
+.author {
+    display: inline-block;
+    margin: 0 6px;
+}
+
+.affiliations {
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.affiliations p {
+    margin-bottom: 4px;
+}
+
+/* --- Buttons --- */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+    gap: 8px;
+}
+
+.btn.primary {
+    background-color: var(--text-main);
+    color: white;
+}
+
+.btn.primary:hover {
+    background-color: var(--primary);
+}
+
+.btn.secondary {
+    background-color: white;
+    color: var(--text-main);
+    border: 1px solid var(--border);
+}
+
+.btn.secondary:hover {
+    border-color: var(--text-main);
+}
+
+.hero-group {
+    display: inline-flex;
+    align-items: stretch;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.hero-group-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.hero-group-option {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.hero-group--paper {
+    border: 1px solid var(--primary);
+    background-color: var(--bg-white);
+}
+
+.hero-group--paper .hero-group-label {
+    background-color: var(--primary);
+    color: white;
+}
+
+.hero-group--paper .hero-group-option {
+    color: var(--primary);
+    border-left: 1px solid var(--border);
+}
+
+.hero-group--paper .hero-group-option:hover {
+    background: rgba(37, 99, 235, 0.08);
+}
+
+.hero-group--github {
+    border: 1px solid #000;
+    background-color: var(--bg-white);
+}
+
+.hero-group--github .hero-group-label {
+    background-color: #000;
+    color: white;
+}
+
+.hero-group--github .hero-group-option {
+    color: #000;
+    border-left: 1px solid var(--border);
+}
+
+.hero-group--github .hero-group-option:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.hero-group--colab {
+    border: 1px solid #d5834b;
+    background-color: var(--bg-white);
+}
+
+.hero-group--colab .hero-group-label {
+    background-color: #d5834b;
+    color: white;
+}
+
+.hero-group--colab .hero-group-option {
+    color: #d5834b;
+    border-left: 1px solid var(--border);
+}
+
+.hero-group--colab .hero-group-option:hover {
+    background: rgba(213, 131, 75, 0.1);
+}
+
+/* --- Teaser Section --- */
+.teaser-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding-top: 40px;
+}
+
+.video-wrapper {
+    margin-bottom: 16px;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-wrapper video {
+    width: 100%;
+    display: block;
+}
+
+.box-shadow {
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.15);
+}
+
+.caption {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    text-align: justify;
+    max-width: 100%;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+
+/* --- Abstract / Two Column --- */
+.two-column {
+    display: grid;
+    grid-template-columns: 1.3fr 1.2fr;
+    gap: 60px;
+    align-items: start;
+}
+
+#abstract .col-text {
+    text-align: justify;
+}
+
+.col-box {
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.col-box h3 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    font-family: var(--font-body);
+}
+
+.simple-list {
+    list-style: none;
+}
+
+.simple-list li {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.simple-list .icon {
+    font-size: 1.5rem;
+}
+
+.simple-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* --- Method Grid --- */
+.section-intro {
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto 48px;
+    font-size: 1.1rem;
+    color: var(--text-light);
+}
+
+.method-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 60px;
+}
+
+.method-card {
+    text-align: center;
+    padding: 24px;
+}
+
+.card-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--text-main);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-weight: 700;
+}
+
+.method-card h3 {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+}
+
+.method-card p {
+    text-align: justify;
+}
+
+.figure-container {
+    text-align: center;
+}
+
+.main-figure {
+    max-width: min(850px, 100%);
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+}
+
+/* --- Results --- */
+#results {
+    padding-bottom: 48px;
+}
+
+.results-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.table-card, .chart-card {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.table-card h3 {
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.clean-table {
+    width: 100%;
+}
+
+.table-header, .table-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+}
+
+.table-header {
+    font-weight: 700;
+    color: var(--primary);
+    border-bottom: 2px solid var(--border);
+}
+
+.table-row.highlight {
+    background-color: #f0fdf4;
+    color: #15803d;
+    font-weight: 600;
+}
+
+.table-note {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: 16px;
+    text-align: center;
+}
+
+.result-img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+/* --- Resources --- */
+.resources {
+    background: var(--bg-white);
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.resource-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.03);
+}
+
+.resource-card.highlight {
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.1);
+}
+
+.resource-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: var(--text-main);
+}
+
+.resource-desc {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+}
+
+.resource-actions.inline {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-outline {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.colab-ad {
+    margin-top: 12px;
+}
+
+.colab-ad-inner {
+    background: #0b1220;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.colab-ad-title {
+    padding: 10px 12px;
+    color: #cbd5e1;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+    background: rgba(15, 23, 42, 0.6);
+    font-size: 0.85rem;
+}
+
+.colab-placeholder {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+/* --- BibTeX --- */
+.bibtex-box {
+    position: relative;
+    background: #1f2937;
+    padding: 24px;
+    border-radius: 12px;
+}
+
+.bibtex-scroll {
+    overflow-x: auto;
+}
+
+.btn-copy {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #9ca3af;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-copy:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #e5e7eb;
+}
+
+.btn-copy.copied {
+    background: rgba(34, 197, 94, 0.2);
+    color: #6ee7b7;
+}
+
+.btn-copy .hidden {
+    display: none;
+}
+
+.bibtex-box pre {
+    margin: 0;
+    padding-right: 48px;
+}
+
+pre code {
+    font-family: var(--font-mono);
+    color: #e5e7eb;
+    font-size: 0.9rem;
+}
+
+/* --- Footer --- */
+footer {
+    padding: 40px 0;
+    text-align: center;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border);
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    h1.title {
+        font-size: 2.2rem;
+    }
+
+    .two-column {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .method-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .results-wrapper {
+        grid-template-columns: 1fr;
+    }
+    
+    .resources-grid {
+        grid-template-columns: 1fr;
+    }
+}
