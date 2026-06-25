@@ -221,6 +221,91 @@ p {
     background: rgba(213, 131, 75, 0.1);
 }
 
+.hero-group--demo {
+    border: 1px solid #0d9488;
+    background-color: var(--bg-white);
+}
+
+.hero-group--demo .hero-group-label {
+    background-color: #0d9488;
+    color: white;
+}
+
+.hero-group--demo .hero-group-option {
+    color: #0d9488;
+    border-left: 1px solid var(--border);
+}
+
+.hero-group--demo .hero-group-option:hover {
+    background: rgba(13, 148, 136, 0.1);
+}
+
+/* --- Interactive Simulator --- */
+.simulator-preview {
+    position: relative;
+    display: block;
+    max-width: min(760px, 100%);
+    margin: 0 auto;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #0c1424;
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.simulator-preview img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.simulator-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    background: rgba(8, 14, 28, 0.35);
+    opacity: 0;
+    transition: opacity 0.25s ease, background 0.25s ease;
+}
+
+.simulator-preview:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 50px -16px rgba(13, 148, 136, 0.45);
+}
+
+.simulator-preview:hover .simulator-overlay {
+    opacity: 1;
+    background: rgba(8, 14, 28, 0.5);
+}
+
+.simulator-play {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: rgba(13, 148, 136, 0.92);
+    color: white;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.simulator-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
 /* --- Teaser Section --- */
 .teaser-section {
     max-width: 900px;
@@ -420,7 +505,7 @@ p {
 
 /* --- Resources --- */
 .resources {
-    background: var(--bg-white);
+    background: var(--bg-off);
 }
 
 .resources-grid {
