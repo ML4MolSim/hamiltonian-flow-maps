@@ -4,7 +4,7 @@
 <a href="https://ml4molsim.github.io/hamiltonian-flow-maps/"><img src="https://img.shields.io/badge/Project_Page-007ec6?style=for-the-badge&logo=htmx&logoColor=white" alt="Project Page"/></a>
 <a href="https://colab.research.google.com/github/ML4MolSim/hamiltonian-flow-maps/blob/main/examples/harmonic_oscillator_standalone.ipynb"><img src="https://img.shields.io/badge/Colab jax-e37e3d.svg?style=for-the-badge&logo=googlecolab&logoColor=white" alt="JAX Colab"/></a>
 <a href="https://colab.research.google.com/github/ML4MolSim/hamiltonian-flow-maps/blob/main/examples/harmonic_oscillator_standalone_pytorch.ipynb"><img src="https://img.shields.io/badge/Colab PyTorch-e37e3d.svg?style=for-the-badge&logo=googlecolab&logoColor=white" alt="Colab PyTorch"/></a>
-<a href="https://winfried-ripken.github.io/hfm-demo/"><img src="https://img.shields.io/badge/Simulator%20-%20green?style=for-the-badge&logo=moleculer&logoColor=white" alt="Simulator"/></a>
+<a href="https://ml4molsim.github.io/hfm-demo/"><img src="https://img.shields.io/badge/Simulator%20-%20green?style=for-the-badge&logo=moleculer&logoColor=white" alt="Simulator"/></a>
 
 </p>
 This repository implements learning <b>Hamiltonian Flow Maps (HFM)</b> for molecular dynamics simulations and other Hamiltonian systems.
