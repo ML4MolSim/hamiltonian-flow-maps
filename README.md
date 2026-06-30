@@ -20,6 +20,21 @@ This repository implements learning <b>Hamiltonian Flow Maps (HFM)</b> for molec
   <em>Our learned Hamiltonian Flow Map enables stable simulations at significantly larger timesteps (right) than standard Velocity Verlet integration (left), which becomes inaccurate or unstable already at comparatively small step sizes. Consequently, our model explores conformational space more rapidly and identifies all relevant modes more efficiently than the baseline. </em>
 </p>
 
+## Interactive Simulator
+
+See Hamiltonian Flow Maps in action. Run large-timestep molecular dynamics of Paracetamol directly in your browser. Adjust the timestep and watch the learned flow map propagate the molecule's phase-space state in real time.
+
+<p align="center">
+  <a href="https://ml4molsim.github.io/hfm-demo/" target="_blank" rel="noopener noreferrer">
+    <img src="assets/hfm-demo.png" alt="Interactive 3D molecular dynamics simulator showing the Paracetamol molecule" width="60%">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://ml4molsim.github.io/hfm-demo/">
+<img src="https://img.shields.io/badge/-Launch_Simulator_→-FFFFFF?style=flat-square&labelColor=white&color=white" alt="" style="filter:none;">  </a>
+</p>
+
 ## Project Structure
 
 * **`configs/`**: Hydra configuration files for models and simulation environments.
