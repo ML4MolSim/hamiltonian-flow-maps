@@ -117,10 +117,18 @@ Feel free to open an issue if you encounter any problems or have questions.
 If you find our work useful, please cite:
 
 ```
-@article{ripken2026learning,
-    title = {Learning Hamiltonian Flow Maps: Mean Flow Consistency for Large-Timestep Molecular Dynamics},
-    author = {Ripken, Winfried and Plainer, Michael and Lied, Gregor and Frank, Thorben and Unke, Oliver T. and Chmiela, Stefan and No{\'e}, Frank and M{\"u}ller, Klaus Robert},
-    year = {2026},
-    journal={arXiv preprint arXiv:2601.22123},
+@inproceedings{ripken2026learning,
+  title = {Learning Hamiltonian Flow Maps: Mean Flow Consistency for Large-Timestep Molecular Dynamics},
+  author = {Ripken, Winfried and
+            Plainer, Michael and
+            Lied, Gregor and
+            Frank, Thorben and
+            Unke, Oliver T. and
+            Chmiela, Stefan and
+            No{\'e}, Frank and
+            M{\"u}ller, Klaus-Robert},
+  booktitle = {Proceedings of the 43rd International Conference on Machine Learning (ICML 2026)},
+  year = {2026},
+  publisher = {PMLR}
 }
 ```
